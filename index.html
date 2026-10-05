@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CRM de Prospecção</title>
+<meta name="description" content="CRM de prospecção: do primeiro contato ao fechamento, com rotina diária e análise de perdas.">
+<meta name="theme-color" content="#16202C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  /* Cores vêm das variáveis CSS abaixo, assim o tema escuro troca tudo de uma vez. */
+  const c = v => `rgb(var(--${v}) / <alpha-value>)`;
+  if (window.tailwind) tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg: c('bg'), surface: c('surface'), surface2: c('surface2'), ink: c('ink'), muted: c('muted'), line: c('line'),
+          t1: c('t1'), t2: c('t2'), t3: c('t3'), t4: c('t4'), t5: c('t5'), t6: c('t6'), win: c('win'), lost: c('lost'), focus: c('focus')
+        },
+        fontFamily: {
+          display: ['"Bricolage Grotesque"', '"Segoe UI"', 'system-ui', 'sans-serif'],
+          sans: ['Manrope', '"Segoe UI"', 'system-ui', '-apple-system', 'sans-serif']
+        }
+      }
+    }
+  };
+</script>
+<style>
+  :root{
+    --bg:237 240 243; --surface:255 255 255; --surface2:246 248 250; --ink:22 32 44; --muted:94 107 122; --line:214 220 227;
+    --t1:111 139 166; --t2:79 151 166; --t3:194 154 43; --t4:224 138 46; --t5:222 95 42; --t6:200 50 58;
+    --win:47 143 91; --lost:138 143 152; --focus:45 107 214;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:17 23 30; --surface:26 34 44; --surface2:33 43 55; --ink:230 235 240; --muted:152 165 180; --line:44 55 68;
+      --t1:138 166 192; --t2:109 181 195; --t3:221 182 74; --t4:240 160 74; --t5:240 122 69; --t6:238 90 96;
+      --win:77 181 124; --lost:142 150 161; --focus:111 158 240;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:17 23 30; --surface:26 34 44; --surface2:33 43 55; --ink:230 235 240; --muted:152 165 180; --line:44 55 68;
+    --t1:138 166 192; --t2:109 181 195; --t3:221 182 74; --t4:240 160 74; --t5:240 122 69; --t6:238 90 96;
+    --win:77 181 124; --lost:142 150 161; --focus:111 158 240;
+    color-scheme:dark;
+  }
+  body{background:rgb(var(--bg));color:rgb(var(--ink))}
+  :focus-visible{outline:2px solid rgb(var(--focus));outline-offset:2px}
+  .no-scrollbar{scrollbar-width:none}.no-scrollbar::-webkit-scrollbar{display:none}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body class="min-h-screen bg-bg font-sans text-[15px] leading-normal text-ink antialiased">
+  <div id="root">
+    <div class="flex min-h-screen items-center justify-center text-sm font-semibold text-muted">Carregando…</div>
+  </div>
+
+  <!-- Camadas sobrepostas -->
+  <div id="scrim" class="fixed inset-0 z-40 hidden bg-black/45"></div>
+  <aside id="drawer" aria-label="Detalhes do lead"
+    class="fixed inset-y-0 right-0 z-50 flex w-full translate-x-full flex-col border-l border-line bg-surface pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)] transition-transform duration-200 sm:w-[460px]"></aside>
+  <div id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"
+    class="fixed left-1/2 top-1/2 z-[60] hidden max-h-[90vh] w-[min(420px,calc(100%-32px))] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-line bg-surface p-5"></div>
+  <div id="toast" role="status" aria-live="polite"
+    class="pointer-events-none fixed bottom-[calc(96px+env(safe-area-inset-bottom))] left-1/2 z-[70] max-w-[calc(100%-32px)] -translate-x-1/2 translate-y-3 rounded-lg bg-ink px-4 py-2.5 text-center text-sm font-semibold text-bg opacity-0 transition md:bottom-6"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
